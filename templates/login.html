@@ -82,9 +82,13 @@
 
   /* SHOPPING TABLE (Horizontal) */
   .shop-table { background: var(--card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
-  .shop-table-header { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--input); padding: 12px 16px; font-size: 10px; font-weight: 800; color: var(--green); text-transform: uppercase; gap: 8px; }
-  .shop-table-row { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 16px; border-bottom: 1px solid var(--border); align-items: center; gap: 8px; }
-  .shop-table-row.checked { opacity: 0.6; background: var(--input); }
+  .shop-table-header { display: grid; grid-template-columns: 2fr 1fr 1fr; background: var(--input); padding: 12px 16px; font-size: 10px; font-weight: 800; color: var(--green); text-transform: uppercase; gap: 8px; }
+  .shop-table-row { display: grid; grid-template-columns: 2fr 1fr 1fr; padding: 12px 16px; border-bottom: 1px solid var(--border); align-items: center; gap: 8px; transition: all 0.2s; }
+  
+  /* CROSS OUT EFFECT */
+  .shop-table-row.checked { opacity: 0.4; background: var(--input); }
+  .shop-table-row.checked .shop-name { text-decoration: line-through; }
+
   .shop-check { display: flex; align-items: center; gap: 8px; }
   .shop-check input[type="checkbox"] { appearance: none; width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; background: var(--bg); flex-shrink: 0;}
   .shop-check input[type="checkbox"]:checked { background-color: var(--green); border-color: var(--green); }
@@ -99,8 +103,8 @@
     .table-row input[type="text"], .table-row input[type="number"] { padding: 6px; font-size: 12px; }
     .btn-delete-row { height: 28px; font-size: 10px; }
     
-    .shop-table-header { grid-template-columns: 1.5fr 1fr 1fr; padding: 10px 8px; gap: 4px; }
-    .shop-table-row { grid-template-columns: 1.5fr 1fr 1fr; padding: 10px 8px; gap: 4px; }
+    .shop-table-header { grid-template-columns: 2fr 1fr 1fr; padding: 10px 8px; gap: 4px; }
+    .shop-table-row { grid-template-columns: 2fr 1fr 1fr; padding: 10px 8px; gap: 4px; }
     .shop-name { font-size: 12px; }
     .shop-qty-input { width: 100%; }
     .shop-price-input { font-size: 12px; padding: 6px; }
@@ -135,7 +139,6 @@
   </header>
   <div class="content">
     <div class="menu-panel">
-      <!-- CATEGORIES ADDED BACK HERE -->
       <div class="category-tabs" id="categoryTabs">
         <button class="tab-btn active" onclick="filterCategory('Groceries', this)">Groceries</button>
         <button class="tab-btn" onclick="filterCategory('Cleaning supplies', this)">Cleaning Supplies</button>
@@ -172,17 +175,14 @@
     <!-- BUDGET BAR -->
     <div class="budget-bar">
       <div class="budget-input-row">
-        <label>My Budget (M)</label>
-        <input type="number" id="budgetInput" placeholder="0.00" oninput="calcBudget()">
+        <label>My Budget</label>
+        <!-- When typing here, it decreases. We save the original input in a hidden variable -->
+        <input type="number" id="budgetDisplay" placeholder="0.00" oninput="updateBudgetFromInput(this.value)">
       </div>
       <div class="budget-summary">
-        <div class="summary-box">
+        <div class="summary-box" style="width: 100%;">
           <span>Subtotal</span>
           <strong id="subtotalDisplay" class="text-green">M 0.00</strong>
-        </div>
-        <div class="summary-box">
-          <span>Remaining</span>
-          <strong id="remainingDisplay" class="text-green">M 0.00</strong>
         </div>
       </div>
     </div>
@@ -203,6 +203,7 @@
   let currentCategory = 'Groceries';
   let items = [];
   let generatedList = [];
+  let originalBudget = 0; // Keeps track of the starting budget
 
   async function loadItems() {
     const res = await fetch('/api/items');
@@ -298,6 +299,9 @@
           </div>
         </div>
       `).join('');
+      
+      // Reset original budget when entering the page
+      originalBudget = parseFloat(document.getElementById('budgetDisplay').value) || 0;
       calcBudget();
     }
     document.getElementById('dashboardScreen').classList.add('hidden');
@@ -309,6 +313,12 @@
     document.getElementById('dashboardScreen').classList.remove('hidden');
   }
 
+  // When the user manually types a new starting budget
+  function updateBudgetFromInput(val) {
+    originalBudget = parseFloat(val) || 0;
+    calcBudget();
+  }
+
   function updateGotQty(id, val) {
     const i = generatedList.find(x => x.id === id);
     if (!i) return;
@@ -317,6 +327,7 @@
     if (n < 0) n = 0;
     i.gotQty = n;
     
+    // Cross out logic
     const card = document.getElementById(`shop-item-${id}`);
     if (card) card.classList.toggle('checked', i.gotQty >= i.quantity);
     
@@ -329,6 +340,7 @@
     const input = document.querySelector(`input[oninput="updateGotQty(${id}, this.value)"]`);
     if (input) input.value = i.gotQty;
     
+    // Cross out logic
     const card = document.getElementById(`shop-item-${id}`);
     if (card) card.classList.toggle('checked', cb.checked);
     
@@ -340,27 +352,28 @@
     if (i) { i.actualPrice = val; calcBudget(); }
   }
 
+  // Calculates subtotal and decreases the budget box
   function calcBudget() {
     let tot = 0;
     generatedList.forEach(i => {
       if (i.actualPrice && !isNaN(i.actualPrice)) tot += parseFloat(i.actualPrice) * i.gotQty;
     });
     
-    const budgetInput = document.getElementById('budgetInput');
-    const budget = parseFloat(budgetInput.value) || 0;
-    const remaining = budget - tot;
-
+    // Show Subtotal
     document.getElementById('subtotalDisplay').textContent = `M ${tot.toFixed(2)}`;
     
-    const remDisplay = document.getElementById('remainingDisplay');
-    remDisplay.textContent = `M ${remaining.toFixed(2)}`;
-    
-    if (remaining < 0) {
-        remDisplay.classList.remove('text-green');
-        remDisplay.classList.add('text-red');
+    // Calculate new budget and update the input box
+    const newBudget = originalBudget - tot;
+    const budgetDisplay = document.getElementById('budgetDisplay');
+    budgetDisplay.value = newBudget.toFixed(2);
+
+    // Change color to red if over budget
+    if (newBudget < 0) {
+        budgetDisplay.classList.add('text-red');
+        budgetDisplay.classList.remove('text-green');
     } else {
-        remDisplay.classList.remove('text-red');
-        remDisplay.classList.add('text-green');
+        budgetDisplay.classList.remove('text-red');
+        budgetDisplay.classList.add('text-green');
     }
   }
 
