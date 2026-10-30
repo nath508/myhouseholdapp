@@ -74,7 +74,7 @@
   .budget-input-row label { font-size: 13px; font-weight: 700; color: var(--muted); }
   .budget-input-row input { width: 100px; border: none; background: transparent; color: var(--green); font-size: 18px; font-weight: 800; text-align: right; outline: none; }
   .budget-summary { display: flex; justify-content: space-between; align-items: center; }
-  .summary-box { text-align: center; width: 100%;}
+  .summary-box { text-align: center; }
   .summary-box span { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
   .summary-box strong { font-size: 18px; font-weight: 800; }
   .text-green { color: var(--green); }
@@ -85,15 +85,9 @@
   .shop-table-header { display: grid; grid-template-columns: 2fr 1fr 1fr; background: var(--input); padding: 12px 16px; font-size: 10px; font-weight: 800; color: var(--green); text-transform: uppercase; gap: 8px; }
   .shop-table-row { display: grid; grid-template-columns: 2fr 1fr 1fr; padding: 12px 16px; border-bottom: 1px solid var(--border); align-items: center; gap: 8px; transition: all 0.2s; }
   
-  /* CROSS OUT EFFECT (THE FIX IS HERE) */
-  .shop-table-row.checked { 
-      opacity: 0.5; 
-      background: var(--input); 
-  }
-  .shop-table-row.checked .shop-name { 
-      text-decoration: line-through; 
-      color: var(--muted);
-  }
+  /* CROSS OUT EFFECT */
+  .shop-table-row.checked { opacity: 0.4; background: var(--input); }
+  .shop-table-row.checked .shop-name { text-decoration: line-through; }
 
   .shop-check { display: flex; align-items: center; gap: 8px; }
   .shop-check input[type="checkbox"] { appearance: none; width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; background: var(--bg); flex-shrink: 0;}
@@ -182,10 +176,11 @@
     <div class="budget-bar">
       <div class="budget-input-row">
         <label>My Budget</label>
+        <!-- When typing here, it decreases. We save the original input in a hidden variable -->
         <input type="number" id="budgetDisplay" placeholder="0.00" oninput="updateBudgetFromInput(this.value)">
       </div>
       <div class="budget-summary">
-        <div class="summary-box">
+        <div class="summary-box" style="width: 100%;">
           <span>Subtotal</span>
           <strong id="subtotalDisplay" class="text-green">M 0.00</strong>
         </div>
