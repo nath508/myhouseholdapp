@@ -8,7 +8,7 @@
   :root { 
     --bg: #061208; --card: #0d1e13; --input: #122a1a; 
     --text: #fff; --muted: #88a692; --green: #3ded79; --border: #1c3826; 
-    --red: #ff5c5c;
+    --red: #ff5c5c; --orange: #e6a336;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; }
@@ -49,53 +49,61 @@
   .btn-action { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid var(--border); font-size: 13px; font-weight: 700; cursor: pointer; }
   .btn-add { background: var(--input); color: var(--green); }
   .btn-save { background: var(--green); color: #000; }
-  .btn-generate { background: #e6a336; color: #000; }
+  .btn-generate { background: var(--orange); color: #000; }
   .btn-visit { background: #fff; color: #000; }
 
-  /* --- TABLE (Mobile Friendly) --- */
+  /* --- DASHBOARD TABLE (Horizontal) --- */
   .table-container { background: var(--card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
-  .table-header { display: grid; grid-template-columns: 1.2fr 1.2fr 0.5fr 1fr 0.6fr; background: var(--input); padding: 14px 16px; font-size: 11px; font-weight: 800; color: var(--green); text-transform: uppercase; gap: 12px; }
-  .table-row { display: grid; grid-template-columns: 1.2fr 1.2fr 0.5fr 1fr 0.6fr; padding: 12px 16px; border-bottom: 1px solid var(--border); align-items: center; gap: 12px; }
-  .table-row input[type="text"], .table-row input[type="number"] { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; background: var(--bg); color: var(--text); }
-  .radio-group { display: flex; gap: 8px; justify-content: center; }
-  .radio-group label { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: var(--muted); cursor: pointer; }
-  .radio-group input[type="radio"] { accent-color: var(--green); width: 16px; height: 16px; }
-  .btn-delete-row { background: rgba(255, 92, 92, 0.1); color: var(--red); border: 1px solid var(--red); width: 100%; height: 34px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; }
+  .table-header { display: grid; grid-template-columns: 2fr 3fr 1fr 2fr 1.5fr; background: var(--input); padding: 14px 16px; font-size: 10px; font-weight: 800; color: var(--green); text-transform: uppercase; gap: 8px; }
+  .table-row { display: grid; grid-template-columns: 2fr 3fr 1fr 2fr 1.5fr; padding: 12px 16px; border-bottom: 1px solid var(--border); align-items: center; gap: 8px; }
+  .table-row input[type="text"], .table-row input[type="number"] { width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; background: var(--bg); color: var(--text); }
+  .radio-group { display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+  .radio-group label { display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--muted); cursor: pointer; }
+  .radio-group input[type="radio"] { accent-color: var(--green); width: 14px; height: 14px; }
+  .btn-delete-row { background: rgba(255, 92, 92, 0.1); color: var(--red); border: 1px solid var(--red); width: 100%; height: 32px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
 
   /* --- SHOPPING LIST PAGE --- */
   .shopping-header { background: var(--card); padding: 16px 20px; border-bottom: 1px solid var(--border); }
   .btn-back { background: var(--input); color: var(--text); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; margin-bottom: 12px; cursor: pointer;}
   .shopping-header h2 { margin: 0; font-size: 22px; }
-  .shopping-page-content { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+  .shopping-page-content { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
   
-  .subtotal-banner { background: rgba(61, 237, 121, 0.1); color: var(--green); padding: 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 20px; margin-bottom: 12px; border: 1px solid #1c7a40; }
-  .shopping-card { background: var(--card); border-radius: 16px; border: 1px solid var(--border); padding: 16px; display: flex; justify-content: space-between; align-items: center; }
-  .shopping-item-left { display: flex; align-items: center; gap: 16px; flex: 1; }
-  .shopping-item-left input[type="checkbox"] { appearance: none; width: 24px; height: 24px; border: 2px solid var(--border); border-radius: 6px; cursor: pointer; background: var(--bg); flex-shrink: 0;}
-  .shopping-item-left input[type="checkbox"]:checked { background-color: var(--green); border-color: var(--green); }
-  .shopping-item-name { font-weight: 700; font-size: 16px; }
-  .shopping-item-desc { font-size: 13px; color: var(--muted); }
-  .shopping-item-right { display: flex; align-items: center; gap: 12px; }
-  
-  .qty-control { display: flex; align-items: center; background: var(--input); border: 1px solid var(--border); border-radius: 8px; padding: 4px 8px; }
-  .qty-input { width: 30px; border: none; background: transparent; font-size: 14px; font-weight: 800; color: var(--green); text-align: center; outline: none; }
-  .qty-text { color: var(--muted); font-weight: 700; font-size: 12px; }
-  .price-input-group { display: flex; align-items: center; background: var(--input); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; }
-  .price-input-group span { color: var(--muted); font-weight: bold; margin-right: 4px; font-size: 14px;}
-  .price-input { width: 60px; border: none; background: transparent; font-size: 15px; font-weight: 700; color: var(--text); text-align: right; outline: none; }
-  
-  .shopping-card.checked { opacity: 0.6; background: var(--input); }
+  /* BUDGET BAR */
+  .budget-bar { background: var(--card); border-radius: 16px; border: 1px solid var(--border); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .budget-input-row { display: flex; align-items: center; justify-content: space-between; background: var(--input); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); }
+  .budget-input-row label { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .budget-input-row input { width: 100px; border: none; background: transparent; color: var(--green); font-size: 18px; font-weight: 800; text-align: right; outline: none; }
+  .budget-summary { display: flex; justify-content: space-between; align-items: center; }
+  .summary-box { text-align: center; }
+  .summary-box span { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+  .summary-box strong { font-size: 18px; font-weight: 800; }
+  .text-green { color: var(--green); }
+  .text-red { color: var(--red); }
+
+  /* SHOPPING TABLE (Horizontal) */
+  .shop-table { background: var(--card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
+  .shop-table-header { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--input); padding: 12px 16px; font-size: 10px; font-weight: 800; color: var(--green); text-transform: uppercase; gap: 8px; }
+  .shop-table-row { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 16px; border-bottom: 1px solid var(--border); align-items: center; gap: 8px; }
+  .shop-table-row.checked { opacity: 0.6; background: var(--input); }
+  .shop-check { display: flex; align-items: center; gap: 8px; }
+  .shop-check input[type="checkbox"] { appearance: none; width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; background: var(--bg); flex-shrink: 0;}
+  .shop-check input[type="checkbox"]:checked { background-color: var(--green); border-color: var(--green); }
+  .shop-name { font-weight: 700; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .shop-qty-input { width: 45px; padding: 6px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; background: var(--bg); color: var(--green); font-weight: 800; text-align: center; outline: none; }
+  .shop-price-input { width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; background: var(--bg); color: var(--text); font-weight: 700; outline: none; }
 
   /* --- MOBILE RESPONSIVENESS --- */
   @media (max-width: 600px) {
-    .table-header { display: none; }
-    .table-row { grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px; background: var(--input); margin-bottom: 10px; border-radius: 12px; border: 1px solid var(--border); }
-    .table-row input[type="text"] { grid-column: 1 / -1; }
-    .table-row input[type="number"] { grid-column: 1; }
-    .radio-group { grid-column: 2; justify-content: flex-end; }
-    .btn-delete-row { grid-column: 1 / -1; width: 100%; margin-top: 4px; }
-    .shopping-card { flex-direction: column; align-items: flex-start; gap: 16px; }
-    .shopping-item-right { width: 100%; justify-content: space-between; }
+    .table-header { grid-template-columns: 1.5fr 1.5fr 0.5fr 1fr 1fr; padding: 10px 8px; gap: 4px; font-size: 9px;}
+    .table-row { grid-template-columns: 1.5fr 1.5fr 0.5fr 1fr 1fr; padding: 10px 8px; gap: 4px; }
+    .table-row input[type="text"], .table-row input[type="number"] { padding: 6px; font-size: 12px; }
+    .btn-delete-row { height: 28px; font-size: 10px; }
+    
+    .shop-table-header { grid-template-columns: 1.5fr 1fr 1fr; padding: 10px 8px; gap: 4px; }
+    .shop-table-row { grid-template-columns: 1.5fr 1fr 1fr; padding: 10px 8px; gap: 4px; }
+    .shop-name { font-size: 12px; }
+    .shop-qty-input { width: 100%; }
+    .shop-price-input { font-size: 12px; padding: 6px; }
   }
 </style>
 </head>
@@ -127,21 +135,26 @@
   </header>
   <div class="content">
     <div class="menu-panel">
+      <!-- CATEGORIES ADDED BACK HERE -->
       <div class="category-tabs" id="categoryTabs">
         <button class="tab-btn active" onclick="filterCategory('Groceries', this)">Groceries</button>
         <button class="tab-btn" onclick="filterCategory('Cleaning supplies', this)">Cleaning Supplies</button>
         <button class="tab-btn" onclick="filterCategory('Personal care', this)">Personal Care</button>
+        <button class="tab-btn" onclick="filterCategory('Bathroom & hygiene', this)">Bathroom & Hygiene</button>
       </div>
+      
       <div class="action-buttons">
-        <button class="btn-action btn-add" onclick="addEmptyRow()">＋ Add an item</button>
-        <button class="btn-action btn-save" onclick="saveList()">Save list</button>
-        <button class="btn-action btn-generate" onclick="generateShoppingList()">Generate shopping list</button>
-        <button class="btn-action btn-visit" onclick="goToShoppingList()">Visit shopping list</button>
+        <button class="btn-action btn-add" onclick="addEmptyRow()">＋ Add</button>
+        <button class="btn-action btn-save" onclick="saveList()">Save</button>
+        <button class="btn-action btn-generate" onclick="generateShoppingList()">Generate List</button>
+        <button class="btn-action btn-visit" onclick="goToShoppingList()">Visit List</button>
       </div>
     </div>
+    
+    <!-- DASHBOARD TABLE -->
     <div class="table-container">
       <div class="table-header">
-        <div>Product Name</div><div>Descriptions</div><div>Qty</div><div style="text-align:center;">Avail / Not</div><div style="text-align:center;">Delete</div>
+        <div>Product</div><div>Description</div><div>Qty</div><div style="text-align:center;">Avail / Not</div><div style="text-align:center;">Delete</div>
       </div>
       <div id="tableBody"></div>
     </div>
@@ -154,7 +167,35 @@
     <button class="btn-back" onclick="closeShoppingList()">← Go Back</button>
     <h2>Your Shopping List</h2>
   </header>
-  <div class="content shopping-page-content" id="shoppingPageBody"></div>
+  <div class="content shopping-page-content">
+    
+    <!-- BUDGET BAR -->
+    <div class="budget-bar">
+      <div class="budget-input-row">
+        <label>My Budget (M)</label>
+        <input type="number" id="budgetInput" placeholder="0.00" oninput="calcBudget()">
+      </div>
+      <div class="budget-summary">
+        <div class="summary-box">
+          <span>Subtotal</span>
+          <strong id="subtotalDisplay" class="text-green">M 0.00</strong>
+        </div>
+        <div class="summary-box">
+          <span>Remaining</span>
+          <strong id="remainingDisplay" class="text-green">M 0.00</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHOPPING TABLE -->
+    <div class="shop-table">
+      <div class="shop-table-header">
+        <div>Item</div><div>Got / Need</div><div>Price (M)</div>
+      </div>
+      <div id="shoppingListBody"></div>
+    </div>
+    
+  </div>
 </div>
 
 <script>
@@ -180,14 +221,14 @@
     const tbody = document.getElementById('tableBody');
     const filtered = items.filter(i => i.category === currentCategory);
     if (filtered.length === 0) {
-      tbody.innerHTML = `<div style="padding: 40px; text-align: center; color: #88a692;">No items yet.<br>Tap "+ Add an item" to start.</div>`;
+      tbody.innerHTML = `<div style="padding: 40px; text-align: center; color: #88a692; font-size:14px;">No items yet.<br>Tap "+ Add" to start.</div>`;
       return;
     }
     tbody.innerHTML = filtered.map(item => `
       <div class="table-row">
-        <input type="text" value="${item.name || ''}" placeholder="Product Name" onchange="updateItem(${item.id}, 'name', this.value)">
-        <input type="text" value="${item.description || ''}" placeholder="Description" onchange="updateItem(${item.id}, 'description', this.value)">
-        <input type="number" value="${item.quantity}" min="1" placeholder="Qty" onchange="updateItem(${item.id}, 'quantity', this.value)">
+        <input type="text" value="${item.name || ''}" placeholder="Product" onchange="updateItem(${item.id}, 'name', this.value)">
+        <input type="text" value="${item.description || ''}" placeholder="Desc" onchange="updateItem(${item.id}, 'description', this.value)">
+        <input type="number" value="${item.quantity}" min="1" onchange="updateItem(${item.id}, 'quantity', this.value)">
         <div class="radio-group">
           <label><input type="radio" name="avail_${item.id}" ${item.available ? 'checked' : ''} onchange="updateItem(${item.id}, 'available', true)"> Avail</label>
           <label><input type="radio" name="avail_${item.id}" ${!item.available ? 'checked' : ''} onchange="updateItem(${item.id}, 'available', false)"> Not</label>
@@ -238,34 +279,26 @@
   }
 
   function goToShoppingList() {
-    const body = document.getElementById('shoppingPageBody');
+    const body = document.getElementById('shoppingListBody');
     if (generatedList.length === 0) {
-      body.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--muted);">No items generated.<br>Click "Generate shopping list" first.</div>`;
+      body.innerHTML = `<div style="padding: 40px; text-align: center; color: var(--muted); font-size:14px;">No items generated.<br>Click "Generate List" first.</div>`;
     } else {
-      let html = `<div class="subtotal-banner"><span>Subtotal</span><span id="subtotalDisplay">M 0.00</span></div>`;
-      html += generatedList.map(i => `
-        <div class="shopping-card" id="shop-item-${i.id}">
-          <div class="shopping-item-left">
+      body.innerHTML = generatedList.map(i => `
+        <div class="shop-table-row" id="shop-item-${i.id}">
+          <div class="shop-check">
             <input type="checkbox" ${i.gotQty >= i.quantity ? 'checked' : ''} onchange="toggleCheck(${i.id}, this)">
-            <div>
-              <div class="shopping-item-name">${i.name}</div>
-              <div class="shopping-item-desc">${i.description || 'No description'}</div>
-            </div>
+            <div class="shop-name">${i.name}</div>
           </div>
-          <div class="shopping-item-right">
-            <div class="qty-control">
-              <input type="number" class="qty-input" value="${i.gotQty}" min="0" max="${i.quantity}" oninput="updateGotQty(${i.id}, this.value)">
-              <span class="qty-text">/ ${i.quantity}</span>
-            </div>
-            <div class="price-input-group">
-              <span>M</span>
-              <input type="number" class="price-input" placeholder="0.00" value="${i.actualPrice || ''}" oninput="updatePrice(${i.id}, this.value)">
-            </div>
+          <div style="display:flex; align-items:center; gap:4px;">
+            <input type="number" class="shop-qty-input" value="${i.gotQty}" min="0" max="${i.quantity}" oninput="updateGotQty(${i.id}, this.value)">
+            <span style="font-size:11px; color:var(--muted);">/ ${i.quantity}</span>
+          </div>
+          <div>
+            <input type="number" class="shop-price-input" placeholder="0.00" value="${i.actualPrice || ''}" oninput="updatePrice(${i.id}, this.value)">
           </div>
         </div>
       `).join('');
-      body.innerHTML = html;
-      calcSubtotal();
+      calcBudget();
     }
     document.getElementById('dashboardScreen').classList.add('hidden');
     document.getElementById('shoppingListScreen').classList.remove('hidden');
@@ -283,7 +316,11 @@
     if (n > i.quantity) n = i.quantity;
     if (n < 0) n = 0;
     i.gotQty = n;
-    calcSubtotal();
+    
+    const card = document.getElementById(`shop-item-${id}`);
+    if (card) card.classList.toggle('checked', i.gotQty >= i.quantity);
+    
+    calcBudget();
   }
 
   function toggleCheck(id, cb) {
@@ -291,21 +328,40 @@
     i.gotQty = cb.checked ? i.quantity : 0;
     const input = document.querySelector(`input[oninput="updateGotQty(${id}, this.value)"]`);
     if (input) input.value = i.gotQty;
-    calcSubtotal();
+    
+    const card = document.getElementById(`shop-item-${id}`);
+    if (card) card.classList.toggle('checked', cb.checked);
+    
+    calcBudget();
   }
 
   function updatePrice(id, val) {
     const i = generatedList.find(x => x.id === id);
-    if (i) { i.actualPrice = val; calcSubtotal(); }
+    if (i) { i.actualPrice = val; calcBudget(); }
   }
 
-  function calcSubtotal() {
+  function calcBudget() {
     let tot = 0;
     generatedList.forEach(i => {
       if (i.actualPrice && !isNaN(i.actualPrice)) tot += parseFloat(i.actualPrice) * i.gotQty;
     });
-    const d = document.getElementById('subtotalDisplay');
-    if (d) d.textContent = `M ${tot.toFixed(2)}`;
+    
+    const budgetInput = document.getElementById('budgetInput');
+    const budget = parseFloat(budgetInput.value) || 0;
+    const remaining = budget - tot;
+
+    document.getElementById('subtotalDisplay').textContent = `M ${tot.toFixed(2)}`;
+    
+    const remDisplay = document.getElementById('remainingDisplay');
+    remDisplay.textContent = `M ${remaining.toFixed(2)}`;
+    
+    if (remaining < 0) {
+        remDisplay.classList.remove('text-green');
+        remDisplay.classList.add('text-red');
+    } else {
+        remDisplay.classList.remove('text-red');
+        remDisplay.classList.add('text-green');
+    }
   }
 
   loadItems();
